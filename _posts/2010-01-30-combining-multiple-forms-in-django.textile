@@ -1,0 +1,55 @@
+---
+layout: post
+title: Combining multiple forms in django
+---
+
+h1. {{ page.title }}
+
+Conveniently, a django.forms.Form object is little more than a collection of fields, meaning that you can concatenate outputs to construct a single form in html, like so:
+
+{% highlight html+django %}
+<form action="" method="POST">
+    {{ form1.as_ul }}
+    {{ form2.as_ul }}
+    <input type="submit" />
+</form>
+{% endhighlight %}
+
+Using a couple of generator expressions, we can combine large or unknown numbers of Form objects with some fairly compact code. Say for instance we want an html form constructed out of a whole bunch of ModelForm objects. Our view for creating/editing this form could look something like this:
+
+{% highlight python %}
+def my_view(request, *args, **kwargs):
+    # First, retrieve/construct ModelForm subclasses and 
+    # instances somehow:
+    magic()
+    
+    # Next, make a collection of ModelForm subclasses, corresponding 
+    # instances and names so that we can iterate over them. We could 
+    # also do this programmatically if we didn't know which classes to 
+    # use until runtime.
+    form_collection = (
+        (FirstModelForm, instance_one, name_one),
+        (SecondModelForm, instance_two, name_two),
+        # ...
+        (NthModelForm, instance_n, name_n)
+    )
+
+    # Initialise all the forms, in a dictionary that we can later use 
+    # as context
+    forms = dict(
+        ("%s_form" % name, form_class(
+            request.POST or None, instance=instance, prefix=name
+        ))
+        for form_class, instance, name in form_collection
+    )
+
+    # if all forms are valid, save all forms
+    if all(form.is_valid() for form in forms.values()):
+        saved_objs = [form.save() for form in forms.values()]
+        return redirect('success-url')
+
+    # if any forms were invalid (or not bound) then render forms
+    return render_to_response('my_template', forms)
+{% endhighlight %}
+
+A variation of this came up in a project, involving dynamically constructed form classes. I was totally impressed by how easy this was to do in django, and how compact the code was thanks to generator expressions and list comprehensions. Just thought I'd share.

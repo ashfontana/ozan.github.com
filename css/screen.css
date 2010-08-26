@@ -1,0 +1,8 @@
+body { font-family: 'Cardo', georgia, times, serif; }
+body, html { background: #f4f4f4; }
+#container {
+  font-size: 123.1%;
+  line-height: 1.5em;
+  margin: 4em auto;
+  width: 40em;
+}
