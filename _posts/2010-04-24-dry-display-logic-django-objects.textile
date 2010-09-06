@@ -7,7 +7,7 @@ h1. {{ page.title }}
 
 One of my favourite software engineering maxims is "<a href='http://en.wikipedia.org/wiki/DRY'>Don't Repeat Yourself</a>". Thankfully, the Django community has embraced this approach - models, for instance, can be used to define forms (@django.forms.ModelForm@) as well as admin interfaces (@django.contrib.admin.ModelAdmin@). URLs are defined once, in a @urls.py@ file, and can be retrieved using @django.core.urlresolvers.reverse@ or the "url" template tag.
 
-Taking a DRY approach to display logic is also important. If an object is being rendered in multiple places on a web site, the display logic should be defined once and pointed to using the <a href="http://docs.djangoproject.com/en/1.1/ref/templates/builtins/#include">include template tag</a>. Say for instance we are building a blog, and that a blog entry could appear both on the blog index page and as a feature on the home page - we ought to define the display logic in a modular template which we then include in other templates as so:
+Taking a DRY approach to display logic is also important. If an object is being rendered in multiple places on a web site, the display logic should be defined once and pointed to using the <a href="http://docs.djangoproject.com/en/1.1/ref/templates/builtins/#include">include template tag</a>. Say for instance we are building a blog, and that a blog entry could appear both on the blog index page and as a feature on the home page--we ought to define the display logic in a modular template which we then include in other templates as so:
 
 {% highlight html+django %}
 {# in home.html: #}
@@ -103,9 +103,9 @@ In our blog index:
 
 {% highlight html+django %}
 <div id="blog-container">
-{% for obj in blog_entries %}
-    {% include "blog/includes/entry.html" %}
-{% endfor %}
+{{ "{% for obj in blog_entries " }}%}
+    {{ "{% include 'blog/includes/entry.html' " }}%}
+{{ "{% endfor " }}%}
 </div>
 <a href="#" onclick="fetchNextEntry()">Fetch next blog post</a>
 {% endhighlight %}
