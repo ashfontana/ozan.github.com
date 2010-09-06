@@ -17,4 +17,14 @@ title: Ozan Onay
       <a href="http://twitter.com/ozanonay" rel="nofollow">follow me on twitter</a>, or 
       <a href='http://au.linkedin.com/in/ozanonay' rel='nofollow'>connect with me on linkedin</a>.
   </p>
+  
+  <h3 style="margin-top: 50px;">Blog posts</h3>
+  <table class="flush">
+    <tbody>
+      {% for post in site.posts %}
+      <tr><td><a href="{{ post.url }}">{{ post.title }}</a></td><td>{{ post.date | date_to_string }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 </div>

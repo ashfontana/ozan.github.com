@@ -26,3 +26,5 @@ pre {
 }
 
 p code { font-size: 0.9em; padding: 2px 3px; }
+
+table.flush { margin-left: -5px; margin-right: -10px; }
