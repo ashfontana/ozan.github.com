@@ -9,8 +9,8 @@ Conveniently, a @django.forms.Form@ object is little more than a collection of f
 
 {% highlight html+django %}
 <form action="" method="POST">
-    {{ form1.as_ul }}
-    {{ form2.as_ul }}
+    {{ "{{ form1.as_ul " }}}}
+    {{ "{{ form2.as_ul " }}}}
     <input type="submit" />
 </form>
 {% endhighlight %}

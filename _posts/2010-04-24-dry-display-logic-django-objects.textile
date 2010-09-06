@@ -5,20 +5,20 @@ title: DRY display logic for Django objects
 
 h1. {{ page.title }}
 
-One of my favourite software engineering maxims is "<a href="http://en.wikipedia.org/wiki/DRY">Don't Repeat Yourself</a>". Thankfully, the Django community has embraced this approach - models, for instance, can be used to define forms (django.forms.ModelForm) as well as admin interfaces (django.contrib.admin.ModelAdmin). URLs are defined once, in a urls.py file, and can be retrieved using django.core.urlresolvers.reverse or the "url" template tag.
+One of my favourite software engineering maxims is "<a href='http://en.wikipedia.org/wiki/DRY'>Don't Repeat Yourself</a>". Thankfully, the Django community has embraced this approach - models, for instance, can be used to define forms (@django.forms.ModelForm@) as well as admin interfaces (@django.contrib.admin.ModelAdmin@). URLs are defined once, in a @urls.py@ file, and can be retrieved using @django.core.urlresolvers.reverse@ or the "url" template tag.
 
 Taking a DRY approach to display logic is also important. If an object is being rendered in multiple places on a web site, the display logic should be defined once and pointed to using the <a href="http://docs.djangoproject.com/en/1.1/ref/templates/builtins/#include">include template tag</a>. Say for instance we are building a blog, and that a blog entry could appear both on the blog index page and as a feature on the home page - we ought to define the display logic in a modular template which we then include in other templates as so:
 
 {% highlight html+django %}
 {# in home.html: #}
-{% with feature_blog_post as obj %}
-    {% include "blog/includes/entry.html" %}
-{% endwith %}
+{{ "{% with feature_blog_post as obj " }}%}
+    {{ "{% include 'blog/includes/entry.html' " }}%}
+{{ "{% endwith " }}%}
 
 {# in blog/index.html #}
-{% for obj in blog_entries %}
-    {% include "blog/includes/entry.html" %}
-{% endfor %}
+{{ "{% for obj in blog_entries " }}%}
+    {{ "{% include 'blog/includes/entry.html' " }}%}
+{{ "{% endfor " }}%}
 {% endhighlight %}
 
 Unique styling can be applied using classes of parent elements (body.homepage .blog {}, for instance) but display logic is defined only once.
@@ -135,5 +135,5 @@ def fetch_blog_post(request, entry_pk):
     return dajax.json()
 {% endhighlight %}
 
-Keeping the display logic for a Django object in a single template makes it easy to implement site-wide changes, creates a single point of failure, and avoids errors which may occur if sections of the site become out of sync. Rendering to the same template through the view (using my RenderableMixin or otherwise) means that we can maintain that modularity when using AJAX, too. This approach has saved me time and headaches on my projects recently - I hope it does the same for you.
+Keeping the display logic for a Django object in a single template makes it easy to implement site-wide changes, creates a single point of failure, and avoids errors which may occur if sections of the site become out of sync. Rendering to the same template through the view (using my @RenderableMixin@ or otherwise) means that we can maintain that modularity when using AJAX, too. This approach has saved me time and headaches on my projects recently - I hope it does the same for you.
 
