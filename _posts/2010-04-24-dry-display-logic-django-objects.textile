@@ -1,0 +1,139 @@
+---
+layout: post
+title: DRY display logic for Django objects
+---
+
+h1. {{ page.title }}
+
+One of my favourite software engineering maxims is "<a href="http://en.wikipedia.org/wiki/DRY">Don't Repeat Yourself</a>". Thankfully, the Django community has embraced this approach - models, for instance, can be used to define forms (django.forms.ModelForm) as well as admin interfaces (django.contrib.admin.ModelAdmin). URLs are defined once, in a urls.py file, and can be retrieved using django.core.urlresolvers.reverse or the "url" template tag.
+
+Taking a DRY approach to display logic is also important. If an object is being rendered in multiple places on a web site, the display logic should be defined once and pointed to using the <a href="http://docs.djangoproject.com/en/1.1/ref/templates/builtins/#include">include template tag</a>. Say for instance we are building a blog, and that a blog entry could appear both on the blog index page and as a feature on the home page - we ought to define the display logic in a modular template which we then include in other templates as so:
+
+{% highlight html+django %}
+{# in home.html: #}
+{% with feature_blog_post as obj %}
+    {% include "blog/includes/entry.html" %}
+{% endwith %}
+
+{# in blog/index.html #}
+{% for obj in blog_entries %}
+    {% include "blog/includes/entry.html" %}
+{% endfor %}
+{% endhighlight %}
+
+Unique styling can be applied using classes of parent elements (body.homepage .blog {}, for instance) but display logic is defined only once.
+
+DRY display logic is particularly helpful in AJAX-heavy sites. Say for instance we decide to have ajax-based pagination on our blog index, where clicking on a "next post" button fetches the next blog post and inserts it into the DOM. We will need to make an AJAX call to a Django view which returns the appropriate blog post. In the response, we could send JSON representing the attributes of the blog post, which are then constructed into a blog post client side, but that is painful, and we'd be repeating ourselves. Instead, why not render the blog post using our existing modular blog template, and return rendered html in the response?
+
+{% highlight python %}
+from django.template import Context
+from django.template.loader import get_template
+
+from library.http import JsonResponse
+
+from models import Entry
+
+def fetch_blog_entry(request, entry_pk):
+    entry = get_object_or_404(Entry, entry_pk)
+    template = get_template('blog/includes/entry.html')
+    context = Context({'obj': entry})
+    rendered_entry = template.render(context)
+    return JsonResponse({'stat': 'ok', 'entry': rendered_entry})
+
+{% endhighlight %}
+
+As usual, we can be more DRY than this, and factor this commonly used logic out. I like to use a mixin which provides a "rendered" method on a model, which looks quite a lot like this:
+
+{% highlight python %}
+class RenderableMixin(object):
+    """
+    A mixin for a Django model which simplifies rendering of the object in
+    its canonical display form
+    """
+    def rendered(self, template=None, request=None, extra_context={}):
+        from django.template.loader import get_template
+        
+        context_dict = {'obj': self}
+        context_dict.update(extra_context)
+        
+        # Use the appropriate context class
+        if request:
+            from django.template import RequestContext
+            context = RequestContext(request, context_dict)
+        else:
+            from django.template import Context
+            context = Context(context_dict)
+            
+        if not template:
+            # If `template` is not passed, attempt to magic the template
+            # path from the name of the app and the model. This is kind 
+            # of a nice naming convention to use anyway.
+            template = "%(app)s/includes/%(model)s.html" % {
+                'app': self._meta.app_label,
+                'model': self._meta.module_name
+            }
+
+        return get_template(template).render(context)
+
+{% endhighlight %}
+
+This way, we can have a renderable model inherit from the mixin as so:
+
+{% highlight python %}
+from django.db import models
+
+from library.models import RenderableMixin
+
+class Entry(models.Model, RenderableMixin):
+    # attrs declared as usual
+
+{% endhighlight %}
+
+... and our view for returning the next blog post is as simple as:
+
+{% highlight python %}
+def fetch_blog_entry(request, entry_pk):
+    entry = get_object_or_404(Entry, entry_pk)
+    return JsonResponse({'stat': 'ok', 'entry': entry.rendered()})
+{% endhighlight %}
+
+Combined with the very helpful <a href="http://dajaxproject.com">dajax</a>, we can achieve our AJAX pagination effect in a handful of lines, and without repeating ourselves...
+
+In our blog index:
+
+{% highlight html+django %}
+<div id="blog-container">
+{% for obj in blog_entries %}
+    {% include "blog/includes/entry.html" %}
+{% endfor %}
+</div>
+<a href="#" onclick="fetchNextEntry()">Fetch next blog post</a>
+{% endhighlight %}
+
+In our js:
+
+{% highlight js+django %}
+function fetchNextEntry () {
+    var next_entry_pk = $('#blog-container').children().length + 1; 
+    Dajaxice.blog.fetch_blog_post('Dajax.process', {
+        'entry_pk': next_entry_pk
+    });
+}
+{% endhighlight %}
+
+And finally, in our ajax.py:
+
+{% highlight python %}
+from dajax.core import Dajax
+
+from models import Entry
+
+def fetch_blog_post(request, entry_pk):
+    dajax = Dajax()
+    entry = Entry.objects.get(pk=entry_pk)
+    dajax.append('#blog-container', 'innerHTML', entry.rendered())
+    return dajax.json()
+{% endhighlight %}
+
+Keeping the display logic for a Django object in a single template makes it easy to implement site-wide changes, creates a single point of failure, and avoids errors which may occur if sections of the site become out of sync. Rendering to the same template through the view (using my RenderableMixin or otherwise) means that we can maintain that modularity when using AJAX, too. This approach has saved me time and headaches on my projects recently - I hope it does the same for you.
+

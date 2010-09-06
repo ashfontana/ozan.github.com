@@ -1,0 +1,82 @@
+---
+layout: post
+title: Nested list comprehensions and generator expressions in Python
+---
+
+h1. {{ page.title }}
+
+The list comprehension, and its under-utilised sibling the <a href='http://www.python.org/dev/peps/pep-0289/'>generator expression</a>, are great tools for handling iteration with mapping and filtering in a compact manner. After all, compare:
+
+{% highlight python %}
+odd_lengthed_squares = []
+for n in range(100):
+    square = n * n
+    if len(str(square)) % 2 == 1:
+        odd_lengthed_squares.append(square)
+{% endhighlight %}
+
+... to the expressiveness of:
+
+{% highlight python %}
+odd_lengthed_squares = [
+    n * n for n in range(100) 
+    if len(str(n * n)) % 2 == 1
+]
+{% endhighlight %}
+
+However, as with any powerful tool, list comps and genexps can potentially be misused. Many python devs (and style guides) will say, for instance, that nested list comps and genexps are hard to read, and that you should use @for@ loops instead.
+
+The Google Python Style Guide <a href='http://google-styleguide.googlecode.com/svn/trunk/pyguide.html?showone=List_Comprehensions#List_Comprehensions'>explicitly prohibits</a> nesting:
+
+bq. [List comprehensions and generator expressions are o]kay to use for simple cases... Multiple for clauses or filter expressions are not permitted. Use loops instead when things get more complicated. 
+
+I can't say I totally agree with this rule, and do break it on occasion. There are situations where multiple for clauses are simple and readable. More importantly, using generator expressions encourages you to separate generation logic from other computations.
+
+Let's consider an example. Say you need to iterate over the words in a file that are longer than 5 characters. The following does so using nested generator expressions:
+
+{% highlight python %}
+from itertools import chain
+
+my_file = file('stuff.txt')
+
+long_words_in_my_file = (
+    word for word in chain.from_iterable(
+        line.rstrip().split() for line in my_file
+    ) if len(word) > 5
+)
+
+for word in long_words_in_my_file:
+    # do a bunch of things
+{% endhighlight %}
+
+By using generator expressions and a couple of iteration tools, we have a compact, lazily evaluated expression without a single state variable. I also think that this is fairly readable - the indentation hints at nesting, and the lack of state variables means that the reader can focus on mapping and filtering conditions. I'm not entirely happy with using @chain.from_iterable@ as it could be confusing for those who aren't familiar with @itertools@, but overall I'd be willing for code like this to enter one of my projects.
+
+In this case, the version that the Google Python Style Guide would recommend seems to be a bit more readable, and doesn't rely on @chain.from_iterable@:
+
+{% highlight python %}
+my_file = file('stuff.txt')
+
+for line in my_file:
+    words = line.rstrip().split()
+    for word in words:
+        if len(word) > 5:
+            # do a bunch of things
+{% endhighlight %}
+
+However, we can see that by using nested @for@ loops, we've conflated our generation logic with the computation that we intend to perform on each element. We've literally wrapped 'a bunch of things' (which could end up being quite complex) in three indentation-levels of generation logic. Of course, you could maintain the separation by defining a generator with the same nested for loops:
+
+{% highlight python %}
+def long_words(f):
+    for line in f:
+        words = line.rstrip().split()
+        for word in words:
+            if len(word) > 5:
+                yield word
+
+for word in long_words(file('stuff.txt')):
+    # do something
+{% endhighlight %}
+
+... however to me this is simply a more verbose version of the nested generator expressions expression, and one that I wouldn't say is more readable.
+
+So in a choice between (relatively simple) nested genexps and list comps on the one hand, and a collision of generation logic and computation on the other, I'd almost always opt for the former. Of course, there are other ways to abstract out generation logic (as shown above) but these are not necessarily going to increase readability.

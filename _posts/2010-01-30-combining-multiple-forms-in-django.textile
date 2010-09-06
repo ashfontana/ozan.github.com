@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Combining multiple forms in django
+title: Combining multiple forms in Django
 ---
 
 h1. {{ page.title }}
