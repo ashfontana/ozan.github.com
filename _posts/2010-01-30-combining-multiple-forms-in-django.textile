@@ -5,7 +5,7 @@ title: Combining multiple forms in django
 
 h1. {{ page.title }}
 
-Conveniently, a django.forms.Form object is little more than a collection of fields, meaning that you can concatenate outputs to construct a single form in html, like so:
+Conveniently, a @django.forms.Form@ object is little more than a collection of fields, meaning that you can concatenate outputs to construct a single form in html, like so:
 
 {% highlight html+django %}
 <form action="" method="POST">
@@ -15,7 +15,7 @@ Conveniently, a django.forms.Form object is little more than a collection of fie
 </form>
 {% endhighlight %}
 
-Using a couple of generator expressions, we can combine large or unknown numbers of Form objects with some fairly compact code. Say for instance we want an html form constructed out of a whole bunch of ModelForm objects. Our view for creating/editing this form could look something like this:
+Using a couple of generator expressions, we can combine large or unknown numbers of Form objects with some fairly compact code. Say for instance we want an html form constructed out of a whole bunch of @ModelForm@ objects. Our view for creating/editing this form could look something like this:
 
 {% highlight python %}
 def my_view(request, *args, **kwargs):

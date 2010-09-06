@@ -3,7 +3,7 @@ body, html { background: #f4f4f4; }
 #container {
   font-size: 123.1%;
   line-height: 1.5em;
-  margin: 4em auto;
+  margin: 4em auto 8em;
   width: 40em;
 }
 
@@ -14,7 +14,7 @@ pre, code, tt {
 
 pre {
   background: #fff;
-  border-top: 1px solid #e3e3e3;
+  border-top: 1px solid #e9e9e9;
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
   padding: 14px 14px 17px 14px;
@@ -24,3 +24,5 @@ pre {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
+
+p code { font-size: 0.9em; padding: 2px 3px; }
