@@ -15,7 +15,7 @@ Conveniently, a @django.forms.Form@ object is little more than a collection of f
 </form>
 {% endhighlight %}
 
-Using a couple of generator expressions, we can combine large or unknown numbers of Form objects with some fairly compact code. Say for instance we want an html form constructed out of a whole bunch of @ModelForm@ objects. Our view for creating/editing this form could look something like this:
+Using a couple of generator expressions, we can combine large or unknown numbers of @Form@ objects with some fairly compact code. Say for instance we want an html form constructed out of a whole bunch of @ModelForm@ objects. Our view for creating/editing this form could look something like this:
 
 {% highlight python %}
 def my_view(request, *args, **kwargs):
@@ -52,4 +52,4 @@ def my_view(request, *args, **kwargs):
     return render_to_response('my_template', forms)
 {% endhighlight %}
 
-A variation of this came up in a project, involving dynamically constructed form classes. I was totally impressed by how easy this was to do in django, and how compact the code was thanks to generator expressions and list comprehensions. Just thought I'd share.
+A variation of this came up in a project, involving dynamically constructed form classes. I was totally impressed by how easy this was to do in Django, and how compact the code was thanks to generator expressions and list comprehensions. Just thought I'd share.
