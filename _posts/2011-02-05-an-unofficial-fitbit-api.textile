@@ -1,0 +1,20 @@
+---
+layout: post
+title: An unofficial API for fitbit.com
+---
+
+h1. {{ page.title }}
+
+Unfortunately fitbit does not provide a public API, which is somewhat annoying if, like me, you wish to run regressions on every aspect of your life to identify optimization opportunities. It only took a few hours, however, to throw together <a href="https://github.com/ozan/fitbit-api">a simple unofficial API for fitbit.com</a> by abstracting a <a href="http://wwwsearch.sourceforge.net/mechanize/">Python mechanize</a> agent.
+
+To use it, simply make an HTTP request using Basic Auth to one of its endpoints, eg:
+
+{% highlight bash %}
+curl -u your_email:your_password http://fitbitapi.appspot.com/weight
+{% endhighlight %}
+
+The endpoints are limited at the moment to those I need for my own purposes, but it'd be mostly straightforward to add representations of all other data available through fitbit's web interface.
+
+As usual, this project was made almost trivially easy by standing on the shoulders of giants: Armin Ronacher's tidy little <a href="http://flask.pocoo.org/">flask</a>  provides a sufficient framework on top of <a href="http://werkzeug.pocoo.org/">Werkzeug</a>, mechanize logs the user in and stashes cookies, which are then used when accessing the XML data feeds (used by the fitbit.com front end to display charts) which are parsed with <a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>. The project is then effortlessly deployed for free on Google App Engine! Thanks guys!
+
+<a href="https://github.com/ozan/fitbit-api">See the docs/code</a>
