@@ -1,0 +1,45 @@
+---
+layout: post
+title: Server log access for non-technical users using Dropbox and BASH
+---
+
+h1. {{ page.title }}
+
+At Topguest, a non-programmer will often need regular access to information which is typically written to a log file on the server. One's options in this situation tend to be:
+
+* _Provide some level of server access_. This will entail a certain amount of diligence, training and potential for explosion... not worth it.
+* _Build a front end_. At a startup like our's, this is probably going to be a waste of time.
+* _Regularly email copies_. This is clumsy, clutters inboxes and requires adding new employee email addresses occasionally.
+
+Our company-wide shared Dropbox folder is the go-to place for non-technical documents, so our solution is to automatically upload certain log files to a 'logs' directory there. The logs can be read as usual, but any modifications or deletions will simply be overwritten by the appropriate server. Installing and configuring Dropbox on our EC2 instances is overkill in this case, so I use <a href="http://www.andreafabrizi.it/download.php?file=dropbox_uploader.sh">a nifty little BASH uploader script</a> which cURLs the Dropbox login and uploads files through the web interface. I then wrap it in another little BASH uploader script to handle rotated logs, which looks something like this:
+
+{% highlight bash %}
+#!/bin/bash
+
+SERVER_LOG_DIR="your/server/log/dir"
+DROPBOX_LOG_DIR="your/dropbox/log/dir"
+
+# Define the logs to sync here... 
+# Rotated logs (for instance foo.log.1 or foo.log.20110211)
+# will also be synced
+LOGS_TO_SYNC="foo_emails_sent.log
+bar_events_triggered.log
+baz_loggable_stuff.log"
+
+function sync_multiple
+{
+  read args
+  for file in $args; do
+    sh ./uploader.sh $file  $DROPBOX_LOG_DIR
+  done
+}
+
+for f in $LOGS_TO_SYNC
+do
+  find $SERVER_LOG_DIR -name $f'*' | xargs | sync_multiple
+done
+{% endhighlight %}
+
+&hellip; and which is scheduled to run as a cron job. Very straightforward.
+
+Oh and remember: if non-technical users are going to be reading your log files, you should treat your logs as another user interface, which means doing user interface design! If familiarity with grep is a prerequisite to making sense of your logs, then you've probably failed.
