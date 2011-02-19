@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Nested list comprehensions and generator expressions in Python
+location: Sydney, Australia
+filename: 2010-01-17-nested-list-comps-genexps-python.textile
 ---
 
 h1. {{ page.title }}

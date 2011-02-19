@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Combining multiple forms in Django
+location: Sydney, Australia
+filename: 2010-01-30-combining-multiple-forms-in-django.textile
 ---
 
 h1. {{ page.title }}

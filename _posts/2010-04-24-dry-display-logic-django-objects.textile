@@ -1,6 +1,8 @@
 ---
 layout: post
 title: DRY display logic for Django objects
+location: Sydney, Australia
+filename: 2010-04-24-dry-display-logic-django-objects.textile
 ---
 
 h1. {{ page.title }}

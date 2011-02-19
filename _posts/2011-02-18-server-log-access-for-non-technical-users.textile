@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Server log access for non-technical users using Dropbox and BASH
+location: San Francisco
+filename: 2011-02-18-server-log-access-for-non-technical-users.textile
 ---
 
 h1. {{ page.title }}
