@@ -30,7 +30,7 @@ function sync_multiple
 {
   read args
   for file in $args; do
-    sh ./uploader.sh $file  $DROPBOX_LOG_DIR
+    sh /path/to/uploader.sh $file  $DROPBOX_LOG_DIR
   done
 }
 
