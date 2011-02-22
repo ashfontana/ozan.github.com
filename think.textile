@@ -1,0 +1,41 @@
+---
+layout: guide
+title: How to think clearly and make better decisions
+location: San Francisco
+filename: think.textile
+published: February 21, 2011
+modified: February 21, 2011
+---
+
+h1. {{ page.title }}
+
+I intend for this to become a rationalist's toolkit and guide to better thinking. I will write it primarily to consolidate my thoughts on thinking and interrogate my use of certain mental models. For now, it is simply a list of resources.
+
+h2. Fallacies and cognitive biases
+* Charlie Munger: The Psychology of Human Misjudgment ("pdf":http://www.law.indiana.edu/instruction/profession/doc/16_1.pdf and "audio recording":http://files.arunbansal.com/audio/MungerMono.mp3)
+* "The Nizkor Project":http://www.nizkor.org/features/fallacies/
+* "Cognitive Biases - A Visual Study Guide":http://www.scribd.com/doc/30548590/Cognitive-Biases-A-Visual-Study-Guide
+
+h2. Mental models
+* "Munger's Worldy Wisdom":http://www.paladinvest.com/pifiles/MungersWorldlyWisdom.htm
+* "Kahneman Master Class: A Short Course in Thinking About Thinking":http://www.edge.org/3rd_culture/kahneman07/kahneman07_index.html
+
+h2. Bayesian reasoning
+* "An Intuitive Explanation of Bayes' Theorem":http://yudkowsky.net/rational/bayes
+
+h2. Practicing rationality
+* "How To Actually Change Your Mind":http://wiki.lesswrong.com/wiki/How_To_Actually_Change_Your_Mind (multiple articles)
+* "The Martial Art of Rationality":http://lesswrong.com/lw/gn/the_martial_art_of_rationality/
+* "Twelve Virtues of Rationality":http://yudkowsky.net/rational/virtues
+
+h2. Disagreement
+* "Are Disagreements Honest?":http://hanson.gmu.edu/deceive.pdf
+* "Aumann's agreement theorem":http://en.wikipedia.org/wiki/Aumann's_agreement_theorem
+* "Agreeing to disagree":http://www.jstor.org/stable/2958591
+
+h2. Signaling
+* "Excess Signaling":http://www.overcomingbias.com/2007/01/excess_signalin.html
+* "Signaling Math":http://www.overcomingbias.com/2009/02/signaling-math.html
+* "Why Impress Friends?":http://www.overcomingbias.com/2010/10/why-impress-friends.html
+* "Opinion Warning Signs":http://www.overcomingbias.com/2010/09/opinion-warning-signs.html
+* "Who Signals least?":http://www.overcomingbias.com/2010/08/who-signals-least.html
