@@ -27,6 +27,7 @@ h2. Practicing rationality
 * "How To Actually Change Your Mind":http://wiki.lesswrong.com/wiki/How_To_Actually_Change_Your_Mind (multiple articles)
 * "The Martial Art of Rationality":http://lesswrong.com/lw/gn/the_martial_art_of_rationality/
 * "Twelve Virtues of Rationality":http://yudkowsky.net/rational/virtues
+* "Making Beliefs Pay Rent":http://lesswrong.com/lw/i3/making_beliefs_pay_rent_in_anticipated_experiences/
 
 h2. Disagreement
 * "Are Disagreements Honest?":http://hanson.gmu.edu/deceive.pdf
