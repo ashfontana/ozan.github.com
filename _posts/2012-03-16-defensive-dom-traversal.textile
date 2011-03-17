@@ -1,0 +1,60 @@
+---
+layout: post
+title: Defensive DOM traversal
+location: San Francisco
+filename: 2011-03-16-defensive-dom-traversal.textile
+---
+
+h1. {{ page.title }}
+
+jQuery makes DOM traversal incredibly easy, but one shouldn't opt for the first technique that seems to work. In particular, we should code our traversal logic defensively, being mindful of the potential for breakage when a team member (or forgetful future you) invariably modifies the markup.
+
+A heuristic that I've found helpful is that one should traverse based on _semantics_, not _layout_ (layout changes often, semantics change rarely).
+
+Take an example where we have some dogs, each of which will wag its tail if the user clicks its head. Your markup may look like this:
+
+{% highlight html %}
+<div class="dog" id="snoopy">
+  <div class="head"></div>
+  <div class="tail"></div>
+</div>
+
+<div class="dog" id="toto">
+  <div class="head"></div>
+  <div class="tail"></div>
+</div>
+{% endhighlight %}
+
+A first pass at our tail-wagger javascript may be:
+
+{% highlight js %}
+$('.dog .head').click(function () { 
+  $(this).next('.tail').addClass('wagging'); 
+});
+{% endhighlight %}
+
+This works and is quite compact—great! However, the use of @next@ exposes us to some reasonably likely breakages. For instance, what if we decide that snoopy should face the opposite direction on the page and so we render his @.tail@ before his @.head@? Clicking on his @.head@ will wag _toto's_ @.tail@! We relied on layout for our functionality, the layout changed, and so our functionality broke. Similar breakages will occur when we have dogs without tails, dogs with multiple tails (why not?) and so on.
+
+Instead, let's rely on semantics, and only presume that tails and heads _belong to certain dogs_ and so are nested within them, and that a dog cannot be part of another dog. This would suggest that we traverse as so:
+
+{% highlight js %}
+$('.dog .head').click(function () {
+  $(this).closest('.dog').find('.tail').addClass('wagging');
+});
+{% endhighlight %}
+
+<a href="http://api.jquery.com/closest/">@closest()@</a> finds the closest dog traversing _up_ the DOM tree, so it will only possibly select the dog which owns the head we clicked on. <a href="http://api.jquery.com/find/">@find()@</a> then traverses down the tree, so only finds the tail (or tails) that belong to the dog in question.
+
+If you were willing to sacrifice same compactness, you could take a more explicit, self-documenting approach, using closure rather than upward traversal to identify the dog in question:
+
+{% highlight js %}
+$('.dog').each(function () {
+  var thisDog = $(this);
+  
+  thisDog.find('.head').click(function () {
+    thisDog.find('.tail').addClass('wagging');
+  }); 
+});
+{% endhighlight %}
+
+Of course, one easy way to encourage layout-agnosticism is through a prototype Dog, where any callback bound to a dog-related event is defined on the prototype. That way, one is repeatedly reminded to deal with @this@, being _this dog_, rather than presuming that one HTML tag is positioned relative to another HTML tag.
