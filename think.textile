@@ -28,6 +28,7 @@ h2. Practicing rationality
 * "The Martial Art of Rationality":http://lesswrong.com/lw/gn/the_martial_art_of_rationality/
 * "Twelve Virtues of Rationality":http://yudkowsky.net/rational/virtues
 * "Making Beliefs Pay Rent":http://lesswrong.com/lw/i3/making_beliefs_pay_rent_in_anticipated_experiences/
+* "How to doubt":http://www.overcomingbias.com/2011/01/how-to-doubt.html
 
 h2. Disagreement
 * "Are Disagreements Honest?":http://hanson.gmu.edu/deceive.pdf
