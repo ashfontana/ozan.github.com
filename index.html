@@ -43,3 +43,83 @@ title: Ozan Onay
   </table>
 
 </div>
+
+<style>
+html {
+  overflow-x: hidden;
+}
+#photo-container-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+}
+#photo-container {
+  margin-left: -18px;
+  margin-top: -14px;
+  overflow: hidden;
+}
+#photo-container img {
+  float: left;
+  border: 1px solid #000;
+}
+body { 
+  background: none; 
+}
+#container { 
+  background: #F4F4F4; 
+  opacity: 0.95;
+  padding: 40px;
+  margin: 80px auto 120px;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+String.prototype.supplant = function (o) {
+  return this.replace(/{([^{}]*)}/g, function (a, b) {
+    var r = o[b];
+    return typeof r === 'string' || typeof r === 'number' ? r : a;
+  });
+};
+
+$(function () {
+  
+  var photoContainerWrapper = $("<div id='photo-container-wrapper'></div>");
+  var photoContainer = $("<div id='photo-container'></div>");
+  var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' />";
+  
+  photoContainerWrapper.prependTo('body');
+  photoContainer.prependTo(photoContainerWrapper);
+
+  var docHeight = $(document).height();
+  var bodyWidth = $('body').innerWidth();
+  photoContainerWrapper.css('height', docHeight + 77).css('width', bodyWidth + 77);
+  
+  $.getJSON("http://api.flickr.com/services/rest/",
+      {
+        method: 'flickr.photosets.getPhotos',
+        api_key: 'bd69ad5a2854c05cbf9f8330e2a1ec80',
+        photoset_id: '72157626022484506',
+        format: 'json',
+        nojsoncallback: 1
+      },
+      function (data) {
+        if (data.stat === 'ok') {
+          var images = $.map(data.photoset.photo, function (photo, i) {
+            var img = $(imgTemplate.supplant(photo));
+            img.css('display', 'none').bind('load', function () {
+              $(this).fadeIn(Math.random() * 5000);
+            });
+            return img;
+          });
+          images.sort(function() {return 0.5 - Math.random()});
+          $.each(images, function (i, image) {
+            photoContainer.append(image);
+          })
+        }
+      });
+      
+});
+</script>
