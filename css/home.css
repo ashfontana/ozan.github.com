@@ -38,9 +38,6 @@ body { overflow-x: hidden; }
   opacity: 1;
 }
 .photo img {
-  height: 75px;
-  width: 75px;
-  border: 0px;
   float: left;
 }
 #main-image {
