@@ -55,3 +55,8 @@ body { overflow-x: hidden; }
   margin-top: -73px;
   opacity: 1;
 }
+
+#posts { 
+  font-size: 0.9em;
+  line-height: 1.5em;
+}

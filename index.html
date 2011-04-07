@@ -58,7 +58,7 @@ layout: none
       </p>
 
       <h3 style="margin-top: 50px;">Blog posts</h3>
-      <table class="flush">
+      <table class="flush" id="posts">
         <tbody>
           {% for post in site.posts %}
           <tr><td><a href="{{ post.url }}">{{ post.title }}</a></td><td>{{ post.date | date_to_string }}</td></tr>
