@@ -1,125 +1,92 @@
 ---
-layout: default
-title: Ozan Onay
+layout: none
 ---
-<div id="home">
-  <h1>Hi, my name is Ozan Onay.</h1>
-  <p>
-    I'm a software developer and programmer based in San Francisco.
-  </p>
-  
-  <p>
-    Being a programmer means speaking to computers in languages we both understand
-    (for me this is <a href="http://learnpythonthehardway.org/">Python</a>,
-    <a href="http://mislav.uniqpath.com/poignant-guide/">Ruby</a> and
-    <a href="http://ejohn.org/apps/learn/">JavaScript</a>).
-    Being a software developer means programming in a way that is
-    <a href="http://en.wikipedia.org/wiki/Agile_software_development" rel="nofollow">effective</a>,
-    <a href="http://en.wikipedia.org/wiki/Test-driven_development" rel="nofollow">maintainable</a> and
-    <a href="http://en.wikipedia.org/wiki/User-centered_design" rel="nofollow">useful for humans</a>,
-    usually alongside other software developers.
-  </p>
-  
-  <p>
-    I practice my craft as cofounder and CTO of <a href="http://topguest.com">Topguest</a>.
-    I occasionally blog here about writing code, and on <a href="http://regardingwork.com">Regarding Work</a>
-    about work practices, productivity and collaboration.
-  </p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ozan Onay</title>
+  <meta name="author" content="Ozan Onay" />
+  <meta name="google-site-verification" content="CWr9iakVT6jOOpgOLpw3W8MOJdTsRpC2MwWcpT-mf54" />
+   
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
 
-  <p>
-    To get in touch, you can 
-    <a href="mailto:ozan.onay@gmail.com" rel="nofollow">email me</a>, 
-    <a href="http://twitter.com/ozanonay" rel="nofollow">follow me on twitter</a>, or 
-    <a href='http://au.linkedin.com/in/ozanonay' rel='nofollow'>connect with me on linkedin</a>.
-  </p>
-  
-  <h3 style="margin-top: 50px;">Blog posts</h3>
-  <table class="flush">
-    <tbody>
-      {% for post in site.posts %}
-      <tr><td><a href="{{ post.url }}">{{ post.title }}</a></td><td>{{ post.date | date_to_string }}</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/typography.css" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" media="screen, projection" />
+  <link rel="stylesheet" type="text/css" href="/css/home.css" media="screen, projection" />
 
+</head>
+<body>
+
+<div id="container">
+  
+  <div class="top"></div>
+  
+  <div class="middle">
+    <div class="left"></div>
+  
+    <div id="content">
+      <h1>Hi, my name is Ozan Onay.</h1>
+      <p>
+        I'm a software developer and programmer based in San Francisco.
+      </p>
+
+      <p>
+        Being a programmer means speaking to computers in languages we both understand
+        (for me this is <a href="http://learnpythonthehardway.org/">Python</a>,
+        <a href="http://mislav.uniqpath.com/poignant-guide/">Ruby</a> and
+        <a href="http://ejohn.org/apps/learn/">JavaScript</a>).
+        Being a software developer means programming in a way that is
+        <a href="http://en.wikipedia.org/wiki/Agile_software_development" rel="nofollow">effective</a>,
+        <a href="http://en.wikipedia.org/wiki/Test-driven_development" rel="nofollow">maintainable</a> and
+        <a href="http://en.wikipedia.org/wiki/User-centered_design" rel="nofollow">useful for humans</a>,
+        usually alongside other software developers.
+      </p>
+
+      <p>
+        I practice my craft as cofounder and CTO of <a href="http://topguest.com">Topguest</a>.
+        I occasionally blog here about writing code, and on <a href="http://regardingwork.com">Regarding Work</a>
+        about work practices, productivity and collaboration.
+      </p>
+
+      <p>
+        To get in touch, you can 
+        <a href="mailto:ozan.onay@gmail.com" rel="nofollow">email me</a>, 
+        <a href="http://twitter.com/ozanonay" rel="nofollow">follow me on twitter</a>, or 
+        <a href='http://au.linkedin.com/in/ozanonay' rel='nofollow'>connect with me on linkedin</a>.
+      </p>
+
+      <h3 style="margin-top: 50px;">Blog posts</h3>
+      <table class="flush">
+        <tbody>
+          {% for post in site.posts %}
+          <tr><td><a href="{{ post.url }}">{{ post.title }}</a></td><td>{{ post.date | date_to_string }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div><!-- #content -->
+  
+    <div class="right">
+    </div>
+  </div><!-- .middle -->
+
+  <div class="bottom" clear="both"></div>
+  
 </div>
 
-<style>
-html {
-  overflow-x: hidden;
-}
-#photo-container-wrapper {
-  overflow: hidden;
-  position: absolute;
-  top: 0px;
-  z-index: -1;
-}
-#photo-container {
-  margin-left: -18px;
-  margin-top: -14px;
-  overflow: hidden;
-}
-#photo-container img {
-  float: left;
-  border: 1px solid #000;
-}
-body { 
-  background: none; 
-}
-#container { 
-  background: #F4F4F4; 
-  opacity: 0.95;
-  padding: 40px;
-  margin: 80px auto 120px;
-}
-</style>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="/js/home.js"></script>
+
 <script type="text/javascript">
-
-String.prototype.supplant = function (o) {
-  return this.replace(/{([^{}]*)}/g, function (a, b) {
-    var r = o[b];
-    return typeof r === 'string' || typeof r === 'number' ? r : a;
-  });
-};
-
-$(function () {
-  
-  var photoContainerWrapper = $("<div id='photo-container-wrapper'></div>");
-  var photoContainer = $("<div id='photo-container'></div>");
-  var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' />";
-  
-  photoContainerWrapper.prependTo('body');
-  photoContainer.prependTo(photoContainerWrapper);
-
-  var docHeight = $(document).height();
-  var bodyWidth = $('body').innerWidth();
-  photoContainerWrapper.css('height', docHeight + 77).css('width', bodyWidth + 77);
-  
-  $.getJSON("http://api.flickr.com/services/rest/",
-      {
-        method: 'flickr.photosets.getPhotos',
-        api_key: '7d7dbfe46562af3c2cd3080fcedcf01c',
-        photoset_id: '72157626022484506',
-        format: 'json',
-        nojsoncallback: 1
-      },
-      function (data) {
-        if (data.stat === 'ok') {
-          var images = $.map(data.photoset.photo, function (photo, i) {
-            var img = $(imgTemplate.supplant(photo));
-            img.css('display', 'none').bind('load', function () {
-              $(this).fadeIn(Math.random() * 5000);
-            });
-            return img;
-          });
-          images.sort(function() {return 0.5 - Math.random()});
-          $.each(images, function (i, image) {
-            photoContainer.append(image);
-          })
-        }
-      });
-      
-});
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-3282460-2']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
 </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+html, body { background: #000; }
+
+body { overflow-x: hidden; }
+
+#container {
+  margin: 0px;
+  width: 100%;
+}
+
+#container .top { height: 154px; }
+
+#container .middle { overflow: hidden; width: 100%; }
+
+#container .left { width: 154px; height: 1px; }
+#container .right { width: 1px; height: 1px; }
+
+#container .left, #content, #container .right { float: left; }
+
+#container .bottom { width: 100%; }
+
+#content { 
+  /* outer width 9 * 77 = 693 */
+  border: 1px solid #000;
+  padding: 30px;
+  width: 554px;
+  background: #F4F4F4; 
+}
+
+#container img {
+  float: left;
+  border: 1px solid #000;
+}
