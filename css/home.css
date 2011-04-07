@@ -16,7 +16,7 @@ body { overflow-x: hidden; }
 
 #container .left, #content, #container .right { float: left; }
 
-#container .bottom { width: 100%; }
+#container .bottom { width: 100%; overflow: hidden; }
 
 #content { 
   /* outer width 9 * 77 = 693 */

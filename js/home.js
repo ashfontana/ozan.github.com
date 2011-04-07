@@ -64,7 +64,15 @@ $(function () {
       }
     }
     return photos;
-  }
+  };
+  
+  var trimBottom = function () {
+    // Once .bottom has been populated, reduce height by one row, for tidiness (as this
+    // row is unlikely to have been filled)
+    var target = $('#container .bottom')
+      , oldHeight = target.height();
+    target.css('height', oldHeight - pSize);
+  };
     
   var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' title='{title}' />";
   var largeImageTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg' title='{title}' />";
@@ -94,7 +102,9 @@ $(function () {
           
           $.each(photos.reverse(), function (i, photo) {
             $('#container .bottom').append(photo);
-          })
+          });
+          
+          trimBottom();
         }
       });
       
