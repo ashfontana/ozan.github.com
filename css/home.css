@@ -40,6 +40,7 @@ body { overflow-x: hidden; }
 .photo img {
   float: left;
   cursor: pointer;
+  display: none; /* start hidden */
 }
 #main-image {
   display: block;

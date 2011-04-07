@@ -98,6 +98,13 @@ $(function () {
             var img = $(imgTemplate.supplant(photo))
               , url = urlTemplate.supplant(photo)
               , photoAnchor = photoTemplate.supplant({'href': url});
+            
+            // Delay image display randomly, to increase RADness
+            $(img).bind('load', function () {
+              var that = $(this);
+              var show = function () { that.fadeIn(); };
+              setTimeout(show, Math.random() * 5000);
+            });
             return $(photoAnchor).append(img);
           });
           
