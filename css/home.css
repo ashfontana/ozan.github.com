@@ -39,6 +39,7 @@ body { overflow-x: hidden; }
 }
 .photo img {
   float: left;
+  cursor: pointer;
 }
 #main-image {
   display: block;
