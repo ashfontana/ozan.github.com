@@ -30,3 +30,17 @@ body { overflow-x: hidden; }
   float: left;
   border: 1px solid #000;
 }
+
+#main-image {
+  display: block;
+  width: 229px;
+  height: 229px;
+  border: 1px solid #000;
+  float: left;
+  overflow: hidden;
+  text-align: center;
+}
+#main-image img {
+  margin-left: -135.5px;
+  margin-top: -73px;
+}

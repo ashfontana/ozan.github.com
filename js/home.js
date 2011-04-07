@@ -30,6 +30,10 @@ $(function () {
   var rightWidth = cWidth - content.outerWidth() - pSize * 2;
   $('#container .right').css('width', rightWidth);
   
+  var showFirstPhoto = function (photo, url) {
+    $('#main-image').attr('href', url).append(photo);
+  };
+  
   var populateTop = function (photos) {
     // Fill the top section with as many photos as possible, and return the remainder
     var target = $('#container .top');
@@ -54,14 +58,17 @@ $(function () {
       for (var l = 0; l < 2; l ++) {
         left.append(photos.pop());
       }
-      for (var r = 0; r < rSlots; r++) {
+      var rFill = (h < 3 ? rSlots - 3 : rSlots);
+      for (var r = 0; r < rFill; r++) {
         right.append(photos.pop());
       }
     }
     return photos;
   }
     
-  var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' />";
+  var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' title='{title}' />";
+  var largeImageTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg' title='{title}' />";
+  var urlTemplate = "http://www.flickr.com/photos/30702620@N04/{id}"
   
   $.getJSON("http://api.flickr.com/services/rest/",
       {
@@ -73,12 +80,13 @@ $(function () {
       },
       function (data) {
         if (data.stat === 'ok') {
+          var firstPhoto = data.photoset.photo.pop()
+            , firstPhotoImg = largeImageTemplate.supplant(firstPhoto)
+            , firstPhotoUrl = urlTemplate.supplant(firstPhoto);
+          showFirstPhoto(firstPhotoImg, firstPhotoUrl);
+          
           var photos = $.map(data.photoset.photo, function (photo, i) {
-            var img = $(imgTemplate.supplant(photo));
-            // img.css('display', 'none').bind('load', function () {
-            //   $(this).fadeIn(Math.random() * 5000);
-            // });
-            return img;
+            return $(imgTemplate.supplant(photo));
           });
           
           photos = populateTop(photos)
