@@ -92,7 +92,7 @@ $(function () {
           photos = populateTop(photos)
           photos = populateMiddle(photos)
           
-          $.each(photos, function (i, photo) {
+          $.each(photos.reverse(), function (i, photo) {
             $('#container .bottom').append(photo);
           })
         }
