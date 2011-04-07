@@ -76,7 +76,8 @@ $(function () {
     
   var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' title='{title}' />";
   var largeImageTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg' title='{title}' />";
-  var urlTemplate = "http://www.flickr.com/photos/30702620@N04/{id}"
+  var urlTemplate = "http://www.flickr.com/photos/30702620@N04/{id}";
+  var photoTemplate = "<a href='{href}' class='photo' rel='nofollow'></a>";
   
   $.getJSON("http://api.flickr.com/services/rest/",
       {
@@ -94,7 +95,10 @@ $(function () {
           showFirstPhoto(firstPhotoImg, firstPhotoUrl);
           
           var photos = $.map(data.photoset.photo, function (photo, i) {
-            return $(imgTemplate.supplant(photo));
+            var img = $(imgTemplate.supplant(photo))
+              , url = urlTemplate.supplant(photo)
+              , photoAnchor = photoTemplate.supplant({'href': url});
+            return $(photoAnchor).append(img);
           });
           
           photos = populateTop(photos)
@@ -104,7 +108,9 @@ $(function () {
             $('#container .bottom').append(photo);
           });
           
-          trimBottom();
+          // After allowing time for the DOM to recognize the newly 
+          // inserted photos in .bottom, trim it
+          setTimeout(trimBottom, 100);
         }
       });
       
