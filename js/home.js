@@ -30,8 +30,11 @@ $(function () {
   var rightWidth = cWidth - content.outerWidth() - pSize * 2;
   $('#container .right').css('width', rightWidth);
   
-  var showFirstPhoto = function (photo, url) {
-    $('#main-image').attr('href', url).append(photo);
+  var showFirstPhoto = function (photo, url, caption) {
+    $('#main-photo')
+      .attr('href', url)
+      .find('.wrapper').append(photo).end()
+      .find('.caption').append(caption);
   };
   
   var populateTop = function (photos) {
@@ -58,7 +61,7 @@ $(function () {
       for (var l = 0; l < 2; l ++) {
         left.append(photos.pop());
       }
-      var rFill = (h < 3 ? rSlots - 3 : rSlots);
+      var rFill = (h < 4 ? rSlots - 3 : rSlots);
       for (var r = 0; r < rFill; r++) {
         right.append(photos.pop());
       }
@@ -78,6 +81,7 @@ $(function () {
   var largeImageTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg' title='{title}' />";
   var urlTemplate = "http://www.flickr.com/photos/30702620@N04/{id}";
   var photoTemplate = "<a href='{href}' class='photo' rel='nofollow'></a>";
+  var captionTemplate = "me, {timeago} <span class='arrow'>↶</span>";
   
   $.getJSON("http://api.flickr.com/services/rest/",
       {
@@ -91,8 +95,11 @@ $(function () {
         if (data.stat === 'ok') {
           var firstPhoto = data.photoset.photo.pop()
             , firstPhotoImg = largeImageTemplate.supplant(firstPhoto)
-            , firstPhotoUrl = urlTemplate.supplant(firstPhoto);
-          showFirstPhoto(firstPhotoImg, firstPhotoUrl);
+            , firstPhotoUrl = urlTemplate.supplant(firstPhoto)
+            , firstPhotoTime = firstPhoto.title.replace('My face @ ', '').replace(' at', '')
+            , timeago = humaneDate(new Date(firstPhotoTime + ' PDT')).toLowerCase()
+            , caption = captionTemplate.supplant({timeago: timeago});
+          showFirstPhoto(firstPhotoImg, firstPhotoUrl, caption);
           
           var photos = $.map(data.photoset.photo, function (photo, i) {
             var img = $(imgTemplate.supplant(photo))

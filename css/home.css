@@ -45,20 +45,42 @@ h1 { margin-bottom: 0.6em; }
   cursor: pointer;
   display: none; /* start hidden */
 }
-#main-image {
+#main-photo {
   display: block;
   width: 229px;
-  height: 229px;
+  height: 306px; /* 229 + 77 */
   border: 1px solid #000;
   float: left;
+}
+#main-photo .wrapper {
   overflow: hidden;
   text-align: center;
+  height: 229px;
 }
-#main-image img {
+#main-photo .wrapper img {
   margin-left: -135.5px;
   margin-top: -73px;
   opacity: 1;
 }
+#main-photo .caption {
+  font-size: 0.9em;
+  line-height: 75px;
+  text-align: center;
+  font-style: italic;
+}
+#main-photo .caption .arrow {
+  /* transform ↶ (ANTICLOCKWISE TOP SEMICIRCLE ARROW) 
+   * to point generally upwards towards face
+   */
+  -webkit-transform: rotate(150deg) scale(4); 
+  -moz-transform: rotate(150deg) scale(4);
+  -o-transform: rotate(150deg) scale(4);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  
+  margin-left: 18px;
+}
+a#main-photo .caption { color: #999; }
+a#main-photo:hover .caption { color: #ccc; }
 
 #posts { 
   margin-bottom: 0px;
