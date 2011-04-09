@@ -72,13 +72,14 @@ h1 { margin-bottom: 0.6em; }
   /* transform ↶ (ANTICLOCKWISE TOP SEMICIRCLE ARROW) 
    * to point generally upwards towards face
    */
-  -webkit-transform: rotate(150deg) scale(4); 
-  -moz-transform: rotate(150deg) scale(4);
-  -o-transform: rotate(150deg) scale(4);
+  -webkit-transform: rotate(135deg) scale(2.5); 
+  -moz-transform: rotate(135deg) scale(2.5);
+  -o-transform: rotate(135deg) scale(2.5);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   
   margin-left: 18px;
   display: inline-block;
+  font-family: 'Lucida Sans Unicode';
 }
 a#main-photo .caption { color: #999; }
 a#main-photo:hover .caption { color: #ccc; }
