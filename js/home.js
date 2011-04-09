@@ -8,6 +8,16 @@ String.prototype.supplant = function (o) {
 
 $(function () {
   
+  var templates = {
+    photo: {
+      small: '<img src="http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg" title="{title}" />',
+      large: '<img src="http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg" title="{title}" />',
+      anchor: '<a href="{href}" class="photo" rel="nofollow"></a>',
+      flickrUrl: 'http://www.flickr.com/photos/30702620@N04/{id}',
+      caption: 'me, {timeago} <span class="arrow">↶</span>'
+    }
+  };
+  
   // Resize UI elements to accomodate photos nicely.
   // For brevity, the p prefix denotes photo and the c prefix denotes container.
   var pSize = 77; 
@@ -76,13 +86,7 @@ $(function () {
       , oldHeight = target.height();
     target.css('height', oldHeight - pSize);
   };
-    
-  var imgTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg' title='{title}' />";
-  var largeImageTemplate = "<img src='http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg' title='{title}' />";
-  var urlTemplate = "http://www.flickr.com/photos/30702620@N04/{id}";
-  var photoTemplate = "<a href='{href}' class='photo' rel='nofollow'></a>";
-  var captionTemplate = "me, {timeago} <span class='arrow'>↶</span>";
-  
+      
   $.getJSON("http://api.flickr.com/services/rest/",
       {
         method: 'flickr.photosets.getPhotos',
@@ -94,17 +98,17 @@ $(function () {
       function (data) {
         if (data.stat === 'ok') {
           var firstPhoto = data.photoset.photo.pop()
-            , firstPhotoImg = largeImageTemplate.supplant(firstPhoto)
-            , firstPhotoUrl = urlTemplate.supplant(firstPhoto)
+            , firstPhotoImg = templates.photo.large.supplant(firstPhoto)
+            , firstPhotoUrl = templates.photo.flickrUrl.supplant(firstPhoto)
             , firstPhotoTime = firstPhoto.title.replace('My face @ ', '').replace(' at', '')
             , timeago = humaneDate(new Date(firstPhotoTime + ' PDT')).toLowerCase()
-            , caption = captionTemplate.supplant({timeago: timeago});
+            , caption = templates.photo.caption.supplant({timeago: timeago});
           showFirstPhoto(firstPhotoImg, firstPhotoUrl, caption);
           
           var photos = $.map(data.photoset.photo, function (photo, i) {
-            var img = $(imgTemplate.supplant(photo))
-              , url = urlTemplate.supplant(photo)
-              , photoAnchor = photoTemplate.supplant({'href': url});
+            var img = $(templates.photo.small.supplant(photo))
+              , url = templates.photo.flickrUrl.supplant(photo)
+              , photoAnchor = templates.photo.anchor.supplant({'href': url});
             
             // Delay image display randomly, to increase RADness
             $(img).bind('load', function () {
