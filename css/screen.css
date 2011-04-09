@@ -1,11 +1,24 @@
-body { font-family: georgia, times, serif; }
 body, html { background: #f4f4f4; }
+body {
+  color: #333129;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); 
+}
 #container {
   font-size: 123.1%;
   line-height: 1.5em;
   margin: 4em auto 0;
   width: 40em;
 }
+#container p {
+  font-size: 1.1em;
+  line-height: 1.6em;
+}
+
+a, a:link, a:visited { 
+  color: #a60181;
+  text-decoration: none; 
+}
+a:hover { color: #d929cc; }
 
 pre, code, tt { 
   font-size: 0.95em;
