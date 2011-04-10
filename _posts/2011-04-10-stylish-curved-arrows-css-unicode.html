@@ -1,0 +1,148 @@
+---
+layout: post
+title: Stylish curved arrows with CSS and unicode
+location: San Francisco
+filename: 2011-04-10-stylish-curved-arrows-css-unicode.html
+---
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+<style type="text/css" media="screen">
+#arrow-selection {
+  margin: -1em 0 1.5em;
+}
+#output, #arrow-selection .ui-button-text {
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;
+}
+#output {
+  height: 300px;
+  width: 300px;
+  line-height: 300px;
+  font-size: 300px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: move;
+}
+</style>
+
+<h1>{{ page.title }}</h1>
+
+<p>
+  Love curvey arrows but hate photoshop? Most of what you want to do 
+  can be achieved using unicode arrows with a bit of CSS transform-ery.
+</p>
+
+<p>
+  1. Select an arrow
+</p>
+
+<div id="arrow-selection" class="buttonset">
+	<input type="radio" id="↺" name="arrow" /><label for="↺">↺</label>
+	<input type="radio" id="↻" name="arrow" /><label for="↻">↻</label>
+	<input type="radio" id="↶" name="arrow" /><label for="↶">↶</label>
+	<input type="radio" id="↷" name="arrow" /><label for="↷">↷</label>
+	<input type="radio" id="↩" name="arrow" checked="checked" /><label for="↩">↩</label>
+	<input type="radio" id="↪" name="arrow" /><label for="↪">↪</label>
+	<input type="radio" id="↝" name="arrow" /><label for="↝">↝</label>
+	<input type="radio" id="↜" name="arrow" /><label for="↜">↜</label>
+	<input type="radio" id="↯" name="arrow" /><label for="↯">↯</label>
+	<input type="radio" id="⇜" name="arrow" /><label for="⇜">⇜</label>
+</div>
+	
+<p>
+  2. Rotate your arrow by clicking and dragging
+</p>
+
+<div id="rotator">
+  <div id="drag-proxy"></div>
+  <div id="output">↩</div>
+</div>
+
+<p>
+  The required CSS for you arrow is then:
+</p>
+
+<pre><code class="css" id="result-css">.my-arrow {
+  display: inline-block;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}</code></pre>
+
+<p>
+  &hellip; and the markup for your arrow is simply:
+</p>
+
+<pre><code class="html" id="result-html">&lt;span class=&quot;my-arrow&quot;&gt;↩&lt;/span&gt;</code></pre>
+
+<p>
+  Enjoy!
+</p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+String.prototype.supplant = function (o) {
+  return this.replace(/{([^{}]*)}/g, function (a, b) {
+    var r = o[b];
+    return typeof r === 'string' || typeof r === 'number' ? r : a;
+  });
+};
+
+$(function () {
+  var output = $('#output');
+
+  var templates = {
+    css: [".my-arrow {\n",
+          "  display: inline-block;\n",
+          "  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif\n",
+          "  -webkit-transform: rotate({rotation}rad);\n",
+          "  -moz-transform: rotate({rotation}rad);\n",
+          "  -o-transform: rotate({rotation}rad);\n",
+          "  transform: rotate({rotation}rad);\n",
+          "}"].join(''),
+    html: "&lt;span class=&quot;my-arrow&quot;&gt;{arrow}&lt;/span&gt;"
+  }
+  
+  var calculation = {
+    rotation: '0',
+    'font-family': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif"
+  }
+  
+  $('.buttonset').buttonset();
+  
+  $('input[name="arrow"]').bind('click', function () {
+    var arrow = $(this).attr('id')
+    output.html(arrow);
+    $('#result-html').html(templates.html.supplant({arrow: arrow}));
+  });
+  
+  var rotate = function (e) {
+    var offset = output.offset()
+      , outputH = output.height()
+      , outputW = output.width()
+      , center = {
+          x: offset.left + outputW / 2, 
+          y: offset.top + outputH / 2
+        }
+      , grad = (e.pageY - center.y) / (e.pageX - center.x)
+      , offset = (e.pageX - center.x > 0 ? 0 : Math.PI)
+      , rotation = Math.atan(grad) + offset
+      , rotCss = 'rotate(' + rotation + 'rad)';
+    output
+      .css('transform', rotCss)
+      .css('-moz-transform', rotCss)
+      .css('-webkit-transform', rotCss)
+      .css('-o-transform', rotCss);
+    $('#result-css').html(templates.css.supplant({rotation: rotation}))
+  };
+  
+  output.bind('mousedown', function (e) {
+    $(document).bind('mousemove', rotate);
+  });
+  $(document).bind('mouseup', function () {
+    $(this).unbind('mousemove', rotate);
+  });
+});
+</script>
