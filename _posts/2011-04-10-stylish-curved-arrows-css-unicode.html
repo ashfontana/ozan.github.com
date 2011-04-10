@@ -47,8 +47,6 @@ filename: 2011-04-10-stylish-curved-arrows-css-unicode.html
 	<input type="radio" id="↪" name="arrow" /><label for="↪">↪</label>
 	<input type="radio" id="↝" name="arrow" /><label for="↝">↝</label>
 	<input type="radio" id="↜" name="arrow" /><label for="↜">↜</label>
-	<input type="radio" id="↯" name="arrow" /><label for="↯">↯</label>
-	<input type="radio" id="⇜" name="arrow" /><label for="⇜">⇜</label>
 </div>
 	
 <p>
@@ -95,26 +93,43 @@ $(function () {
   var templates = {
     css: [".my-arrow {\n",
           "  display: inline-block;\n",
-          "  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif\n",
+          "  font-family: {font-family}\n",
           "  -webkit-transform: rotate({rotation}rad);\n",
           "  -moz-transform: rotate({rotation}rad);\n",
           "  -o-transform: rotate({rotation}rad);\n",
           "  transform: rotate({rotation}rad);\n",
           "}"].join(''),
     html: "&lt;span class=&quot;my-arrow&quot;&gt;{arrow}&lt;/span&gt;"
-  }
+  };
   
-  var calculation = {
+  var preferredFonts = {
+    '↺': "'Arial Black', Gadget, sans-serif",
+    '↻': "'Arial Black', Gadget, sans-serif",
+    '↶': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+    '↷': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+    '↩': "'Arial Black', Gadget, sans-serif",
+    '↪': "'Arial Black', Gadget, sans-serif",
+    '↝': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+    '↜': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif"
+  };
+  
+  var result = {
+    arrow: '↩',
     rotation: '0',
     'font-family': "'Lucida Sans Unicode', 'Lucida Grande', sans-serif"
-  }
+  };
   
   $('.buttonset').buttonset();
   
   $('input[name="arrow"]').bind('click', function () {
     var arrow = $(this).attr('id')
+      , fontFamily = preferredFonts[arrow];
     output.html(arrow);
-    $('#result-html').html(templates.html.supplant({arrow: arrow}));
+    output.css('font-family', fontFamily + ' !important');
+    result.arrow = arrow;
+    result['font-family'] = fontFamily;
+    $('#result-html').html(templates.html.supplant(result));
+    $('#result-css').html(templates.css.supplant(result));
   });
   
   var rotate = function (e) {
@@ -134,7 +149,8 @@ $(function () {
       .css('-moz-transform', rotCss)
       .css('-webkit-transform', rotCss)
       .css('-o-transform', rotCss);
-    $('#result-css').html(templates.css.supplant({rotation: rotation}))
+    result.rotation = rotation;
+    $('#result-css').html(templates.css.supplant(result))
   };
   
   output.bind('mousedown', function (e) {
