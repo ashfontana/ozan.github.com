@@ -5,6 +5,10 @@ layout: default
 {{ content }}
 </div>
 
-<div id="meta">
-  &#8220;{{ page.title }}&#8221; is a blog post by <a href="/">Ozan&nbsp;Onay</a>. It was originally published on {{ page.date | date: "%B %d, %Y" }} from {{ page.location }}. Considering that it is hosted on github, you can <a href="https://github.com/ozan/ozan.github.com/commits/master/_posts/{{ page.filename }}">see the modification history</a>.
+<div class="meta top">
+  &#8220;{{ page.title }}&#8221; is a blog post by <a href="/">Ozan&nbsp;Onay</a>.
+  It was originally published on {{ page.date | date: "%B %d, %Y" }} from {{ page.location }}.
+  Considering that it is hosted on github, you can
+  <a href="https://github.com/ozan/ozan.github.com/commits/master/_posts/{{ page.filename }}">see the modification history</a>.
+  It currently has <a href="#disqus_thread" id="comment-count" data-disqus-identifier="{{ page.filename }}">0 comments</a>.
 </div>
