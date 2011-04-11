@@ -4,40 +4,68 @@ title: How to think clearly and make better decisions
 location: San Francisco
 filename: think.textile
 published: February 21, 2011
-modified: February 21, 2011
+modified: April 11, 2011
 ---
 
 h1. {{ page.title }}
 
 I intend for this to become a rationalist's toolkit and guide to better thinking. I will write it primarily to consolidate my thoughts on thinking and interrogate my use of certain mental models. For now, it is simply a list of resources.
 
-h2. Fallacies and cognitive biases
+
+h2. Resources
+
+h3. Fallacies and cognitive biases
 * Charlie Munger: The Psychology of Human Misjudgment ("pdf":http://www.law.indiana.edu/instruction/profession/doc/16_1.pdf and "audio recording":http://files.arunbansal.com/audio/MungerMono.mp3)
 * "The Nizkor Project":http://www.nizkor.org/features/fallacies/
 * "Cognitive Biases - A Visual Study Guide":http://www.scribd.com/doc/30548590/Cognitive-Biases-A-Visual-Study-Guide
 
-h2. Mental models
+h3. Mental models
 * "Munger's Worldy Wisdom":http://www.paladinvest.com/pifiles/MungersWorldlyWisdom.htm
 * "Kahneman Master Class: A Short Course in Thinking About Thinking":http://www.edge.org/3rd_culture/kahneman07/kahneman07_index.html
 
-h2. Bayesian reasoning
+h3. Bayesian reasoning
 * "An Intuitive Explanation of Bayes' Theorem":http://yudkowsky.net/rational/bayes
 
-h2. Practicing rationality
+h3. Practicing rationality
 * "How To Actually Change Your Mind":http://wiki.lesswrong.com/wiki/How_To_Actually_Change_Your_Mind (multiple articles)
 * "The Martial Art of Rationality":http://lesswrong.com/lw/gn/the_martial_art_of_rationality/
 * "Twelve Virtues of Rationality":http://yudkowsky.net/rational/virtues
 * "Making Beliefs Pay Rent":http://lesswrong.com/lw/i3/making_beliefs_pay_rent_in_anticipated_experiences/
 * "How to doubt":http://www.overcomingbias.com/2011/01/how-to-doubt.html
 
-h2. Disagreement
+h3. Disagreement
 * "Are Disagreements Honest?":http://hanson.gmu.edu/deceive.pdf
 * "Aumann's agreement theorem":http://en.wikipedia.org/wiki/Aumann's_agreement_theorem
 * "Agreeing to disagree":http://www.jstor.org/stable/2958591
 
-h2. Signaling
+h3. Signaling
 * "Excess Signaling":http://www.overcomingbias.com/2007/01/excess_signalin.html
 * "Signaling Math":http://www.overcomingbias.com/2009/02/signaling-math.html
 * "Why Impress Friends?":http://www.overcomingbias.com/2010/10/why-impress-friends.html
 * "Opinion Warning Signs":http://www.overcomingbias.com/2010/09/opinion-warning-signs.html
 * "Who Signals least?":http://www.overcomingbias.com/2010/08/who-signals-least.html
+
+h2. Steps
+
+h3. Distinguish between thinking and knowing
+
+Being "smart" conflates thinking (a skill) with knowing ()
+
+h3. Be a pragmatist, make beliefs pay rent
+
+h3. Learn how to doubt
+
+h3. Consider why people say and do the things they say and do
+
+h3. Identify and seek out scrutinizers
+
+h3. Speak and write more clearly.
+
+Why? Disciplined communication seems to lead to disciplined thought. If you communicate ineffectively, it will be difficult for others to scrutinize your thoughts.
+
+How? Study http://www.ai.uga.edu/mc/WriteThinkLearn.pdf . Avoid ambiguity. Ask yourself "did this person understand exactly what I said"? If there was "a miscommunication", blame yourself and attempt to identify the source of the confusion. 
+
+h3. Learn to identify the crutches of poor thinking
+
+h3. Practice thinking by limiting non-thinking
+
