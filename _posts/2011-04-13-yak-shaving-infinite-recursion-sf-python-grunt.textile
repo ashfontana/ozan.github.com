@@ -1,0 +1,12 @@
+---
+layout: post
+title: Infinitely recursive SF Python lightning talk featuring yak shaving and grunt
+location: San Francisco
+filename: 2011-04-13-yak-shaving-recursion-sf-python-grunt.textile
+---
+
+This is a quick post to catch those who may be googling for more information about projects I discussed earlier today at <a href="http://www.meetup.com/sfpython/events/16514234/">an SF Python meetup</a>.
+
+You can <a href="https://github.com/ozan/grunt">fork grunt on github</a>.
+
+Yak is not yet open source but will be soon. If you are interested in working with/on Yak, please <a href="mailto:ozan.onay@gmail.com">get in touch with me</a>.
