@@ -72,7 +72,7 @@ ul { padding-left: 2em; }
 li { list-style-type: disc; margin-bottom: 1em; }
 
 h1 { margin-bottom: 0.9em; }
-h2 { margin-bottom: 0.6em; }
+h2 { margin-bottom: 0.6em; line-height: 1.15em; }
 
 #disqus_thread h3 { color: #fff; }
 #dsq-new-post h3 { display: none !important; }
