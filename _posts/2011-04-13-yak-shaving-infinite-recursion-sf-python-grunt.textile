@@ -5,6 +5,8 @@ location: San Francisco
 filename: 2011-04-13-yak-shaving-recursion-sf-python-grunt.textile
 ---
 
+h1. {{ page.title }}
+
 This is a quick post to catch those who may be googling for more information about projects I discussed earlier today at <a href="http://www.meetup.com/sfpython/events/16514234/">an SF Python meetup</a>.
 
 You can <a href="https://github.com/ozan/grunt">fork grunt on github</a>.
