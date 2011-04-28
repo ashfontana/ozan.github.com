@@ -13,7 +13,7 @@ h2. 1. Know less, think more
 
 Being "smart" conflates thinking (a skill) with knowing (a state). While there are some benefits to being more knowledgable than others, I'd suggest that our generation presently overrates knowing and underrates thinking. As such, you should focus—as this article does—on improving your thinking. 
 
-Differentiating between thinking and knowing will allow you to (1) "discard false or stale knowledge":http://lesswrong.com/lw/k5/cached_thoughts/ more effectively and to your advantage; and, (2) spend your time more effectively by "avoiding any paths to \"smart\"ness that center on knowledge-gathering":http://www.overcomingbias.com/2010/11/bah-sophistication.html.
+Differentiating between thinking and knowing will allow you to (1) "discard false or stale knowledge":http://lesswrong.com/lw/k5/cached_thoughts/ more effectively and to your advantage; and, (2) spend your time more effectively by "avoiding knowledge-gathering exercises":http://www.overcomingbias.com/2010/11/bah-sophistication.html disguised as intelligence-building exercises.
 
 h2. 2. Be clear
 
